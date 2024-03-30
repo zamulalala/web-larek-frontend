@@ -294,7 +294,8 @@ export interface IContactsFormUI {
 
 // Интерфейс для данных о заказе
 export interface IOrder extends IPaymentFormUI, IContactsFormUI {
-  items: string[]
+  items: string[];
+  total: number;
 }
 
 // Интерфейс для UI успешной покупки

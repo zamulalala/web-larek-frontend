@@ -1,5 +1,5 @@
-import {Component} from "../base/Component";
-import {ensureElement} from "../../utils/utils";
+import {Component} from "./base/Component";
+import {ensureElement} from "../utils/utils";
 
 interface ISuccessfulPurchaseUI {
     total: number;
@@ -25,7 +25,7 @@ export class SuccessfulPurchaseUI extends Component<ISuccessfulPurchaseUI> {
     }
 
     set total(totalSynapses: number) {
-        this._total.textContent = `Списано ${totalSynapses} синапсов`;
+        this.setText(this._total, `Списано ${totalSynapses} синапсов`);
     }
 
 }

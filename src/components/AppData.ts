@@ -52,7 +52,7 @@ export class AppState extends Model<IAppState> {
         this.order[field] = value;
 
         if (this.validatePaymentForm()) {
-            this.events.emit('order:ready', this.order);
+            this.emitChanges('order:ready', this.order);
         }
     }
 
@@ -60,7 +60,7 @@ export class AppState extends Model<IAppState> {
         this.order[field] = value;
 
         if (this.validateContactsForm()) {
-            this.events.emit('order:ready', this.order);
+            this.emitChanges('order:ready', this.order);
         }
     }
 
@@ -73,7 +73,7 @@ export class AppState extends Model<IAppState> {
             errors.address = 'Необходимо указать адрес доставки';
         }
         this.formErrors = errors;
-        this.events.emit('paymentFormErrors:change', this.formErrors);
+        this.emitChanges('paymentFormErrors:change', this.formErrors);
         return Object.keys(errors).length === 0;
     }
 
@@ -86,7 +86,7 @@ export class AppState extends Model<IAppState> {
             errors.phone = 'Необходимо указать телефон';
           }
         this.formErrors = errors;
-        this.events.emit('contactsFormErrors:change', this.formErrors);
+        this.emitChanges('contactsFormErrors:change', this.formErrors);
         return Object.keys(errors).length === 0;
     }
 

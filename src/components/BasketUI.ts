@@ -1,7 +1,7 @@
-import {Component} from "../base/Component";
-import {createElement, ensureElement, formatNumber} from "../../utils/utils";
-import {EventEmitter} from "../base/events";
-import { IProductBasket } from "../../types";
+import {Component} from "./base/Component";
+import {createElement, ensureElement, formatNumber} from "../utils/utils";
+import {EventEmitter} from "./base/Events";
+import { IProductBasket } from "../types";
 
 interface IBasketUI {
     items: HTMLElement[];
@@ -66,7 +66,6 @@ export interface IBasketItemUIActions {
         
         if (actions?.onClick) {
             if (this._deleteButton) {
-                container.removeEventListener('click', actions.onClick);
                 this._deleteButton.addEventListener('click', actions.onClick);
             } 
           }

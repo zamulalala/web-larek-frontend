@@ -1,6 +1,6 @@
 import {FormUI} from "./common/FormUI";
 import {IContactsFormUI, IPaymentFormUI} from "../types";
-import {IEvents} from "./base/events";
+import {IEvents} from "./base/Events";
 
 export class PaymentFormUI extends FormUI<IPaymentFormUI> {
     protected _paymentCardButton: HTMLButtonElement;
@@ -12,7 +12,7 @@ export class PaymentFormUI extends FormUI<IPaymentFormUI> {
 
         this._paymentCardButton = container.querySelector('button[name="card"]');
         this._paymentCashButton = container.querySelector('button[name="cash"]');
-        this._addressInput = container.querySelector('input[name="address"]');
+        this._addressInput = container.elements.namedItem('address') as HTMLInputElement;
 
         if (this._paymentCardButton && this._paymentCashButton) {
             this._paymentCardButton.addEventListener('click', () => {
@@ -58,8 +58,8 @@ export class ContactsFormUI extends FormUI<IContactsFormUI> {
     constructor(container: HTMLFormElement, events: IEvents) {
         super(container, events);
 
-        this._emailInput = container.querySelector('input[name="email"]');
-        this._phoneInput = container.querySelector('input[name="phone"]');
+        this._emailInput = container.elements.namedItem('email') as HTMLInputElement;
+        this._phoneInput = container.elements.namedItem('phone') as HTMLInputElement;
     }
 
     set email(value: string) {

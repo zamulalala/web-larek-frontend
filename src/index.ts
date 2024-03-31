@@ -2,15 +2,15 @@
 import './scss/styles.scss';
 
 // Импортируем необходимые классы и утилиты
-import { EventEmitter } from './components/base/events';
+import { EventEmitter } from './components/base/Events';
 import { WebLarekAPI } from './components/WebLarekAPI';
 import { API_URL, CDN_URL } from './utils/constants';
 import { cloneTemplate, ensureElement } from './utils/utils';
 import { AppState, CatalogChangeEvent } from './components/AppData';
 import { PageUI } from './components/PageUI';
 import { ModalUI } from './components/common/ModalUI';
-import { SuccessfulPurchaseUI } from './components/common/SuccessfulPurchaseUI';
-import { BasketItemUI, BasketUI } from './components/common/BasketUI';
+import { SuccessfulPurchaseUI } from './components/SuccessfulPurchaseUI';
+import { BasketItemUI, BasketUI } from './components/BasketUI';
 import { ContactsFormUI, PaymentFormUI } from './components/Order';
 import { ProductUI } from './components/ProductUI';
 import { IContactsFormUI, IPaymentFormUI, IProductUI } from './types';
@@ -65,13 +65,26 @@ events.on<CatalogChangeEvent>('items:changed', () => {
 // Открыть товар
 events.on('card:select', (item: IProductUI) => {
   appData.setPreview(item);
-});
 
-// Просмотр товара
-events.on('preview:changed', (item: IProductUI) => {
+  const isItemInBasket = appData.basket.some((basketItem) => basketItem.id === item.id);
+
   const card = new ProductUI('card', cloneTemplate(cardPreviewTemplate), {
     onClick: () => events.emit('card:add', item)
   });
+
+  if (isItemInBasket) {
+    if (card.button) {
+      card.button.disabled = true;
+      card.button.textContent = 'Уже в корзине';
+    }
+  }
+
+  if (item.price === null) {
+    if (card.button) {
+      card.button.disabled = true;
+      card.button.textContent = 'Нельзя купить';
+    }
+  }
 
   modal.render({
     content: card.render({
@@ -83,6 +96,7 @@ events.on('preview:changed', (item: IProductUI) => {
     })
   });
 });
+
 
 // Добавить в корзину
 events.on('card:add', (item: IProductUI) => {

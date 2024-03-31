@@ -13,7 +13,7 @@ export class ProductUI extends Component<IProductUI> {
     protected _description?: HTMLElement;
     protected _category?: HTMLElement
     protected _price?: HTMLElement
-    protected _button?: HTMLButtonElement;
+    button?: HTMLButtonElement;
     
 
     constructor(protected blockName: string, container: HTMLElement, actions?: IProductUIActions) {
@@ -21,15 +21,15 @@ export class ProductUI extends Component<IProductUI> {
 
         this._title = ensureElement<HTMLElement>(`.${blockName}__title`, container);
         this._image = ensureElement<HTMLImageElement>(`.${blockName}__image`, container);
-        this._button = container.querySelector(`.${blockName}__button`);
+        this.button = container.querySelector(`.${blockName}__button`);
         this._description = container.querySelector(`.${blockName}__text`);
         this._category = container.querySelector(`.${blockName}__category`);
         this._price = container.querySelector(`.${blockName}__price`);
 
 
         if (actions?.onClick) {
-            if (this._button) {
-                this._button.addEventListener('click', actions.onClick);
+            if (this.button) {
+                this.button.addEventListener('click', actions.onClick);
             } else {
                 container.addEventListener('click', actions.onClick);
             }

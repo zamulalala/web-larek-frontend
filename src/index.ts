@@ -75,14 +75,14 @@ events.on('card:select', (item: IProductUI) => {
   if (isItemInBasket) {
     if (card.button) {
       card.button.disabled = true;
-      card.button.textContent = 'Уже в корзине';
+      card.setText(card.button, 'Уже в корзине');
     }
   }
 
   if (item.price === null) {
     if (card.button) {
       card.button.disabled = true;
-      card.button.textContent = 'Нельзя купить';
+      card.setText(card.button, 'Нельзя купить');
     }
   }
 

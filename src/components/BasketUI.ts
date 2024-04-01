@@ -31,14 +31,14 @@ export class BasketUI extends Component<IBasketUI> {
     }
 
     set items(items: HTMLElement[]) {
-        if (items.length) {
-            this._list.replaceChildren(...items);
-        } else {
-            this._list.replaceChildren(createElement<HTMLParagraphElement>('p', {
-                textContent: 'Корзина пуста'
-            }));
-        }
-    }
+      if (items.length) {
+          this._list.replaceChildren(...items);
+      } else {
+          const emptyBasketParagraph = createElement<HTMLParagraphElement>('p');
+          this.setText(emptyBasketParagraph, 'Корзина пуста');
+          this._list.replaceChildren(emptyBasketParagraph);
+      }
+  }
 
     set total(total: number) {
         this.setText(this._total, `${formatNumber(total)} синапсов`);
